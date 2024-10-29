@@ -1,5 +1,6 @@
 <?php
 require('/home/infost490f2406/public_html/mysqli_connect.php');
+session_start();
 
 $errorMessage = "";
 $successMessage = "";
@@ -8,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = mysqli_real_escape_string($dbc, $_POST['username']);
     $password = mysqli_real_escape_string($dbc, $_POST['password']);
 
-    $query = "SELECT * FROM Login WHERE Username = '$username'";
+    $query = "SELECT * FROM User WHERE Username = '$username'";
     $result = mysqli_query($dbc, $query);
 
     if (mysqli_num_rows($result) == 1) {
@@ -16,7 +17,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $hashed_password = $user['Password'];
 
         if (password_verify($password, $hashed_password)) {
+            $_SESSION['username'] = $user['Username'];
+            $_SESSION['user_id'] = $user['User_ID'];
             $successMessage = "Login successful! Welcome, " . htmlspecialchars($username) . ".";
+
+            $user_id = $user['User_ID'];
+            $profile_query = "SELECT * FROM `User-Sorter` WHERE User_ID = '$user_id' AND Native_Language_ID IS NOT NULL AND Learn_Language_ID IS NOT NULL AND Hobby_ID IS NOT NULL";
+            $profile_result = mysqli_query($dbc, $profile_query);
+
+            if (mysqli_num_rows($profile_result) > 0) {
+                header("Location: /dashboard/dashboard.php");
+            } else {
+                header("Location: /profile_settings/profile_settings.php");
+            }
+            exit();
         } else {
             $errorMessage = "Invalid password. Please try again.";
         }
@@ -27,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     mysqli_close($dbc);
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $query = "INSERT INTO Login (First, Last, Username, Password) VALUES ('$first_name', '$last_name', '$username', '$hashed_password')";
+    $query = "INSERT INTO User (First, Last, Username, Password, `Create-Time`) VALUES ('$first_name', '$last_name', '$username', '$hashed_password', NOW())";
 
     if (mysqli_query($dbc, $query)) {
         session_start();
