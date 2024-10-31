@@ -1,34 +1,83 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    display: flex;
+    font-family: 'poppins', sans-serif;
+    background-color: #f7f2e0;
+}
+.image_container{
+    display:flex;
     justify-content: center;
+    
+
+}
+.below_curve{
+    margin-top: 245px;
+    
+    background-color: white;
+}
+.image_container img{
+    width:40%;
+}
+.button_text_container{
+    display:flex;
     align-items: center;
-    height: 100vh;
-    margin: 0;
+    flex-direction: column;
 }
 
-.container {
-    background-color: white;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 500px;
+
+.custom-shape-divider-bottom-1730279206 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    fill: white;
 }
+
 
 h1 {
     margin-bottom: 20px;
 }
 
-p {
-    margin-bottom: 30px;
-    font-size: 18px;
+h2{
+    text-align: center;
 }
 
-.buttons {
+p {
+    margin-bottom: 30px;
+    margin-left: 0px;
+    font-size: 18px;
+    text-align: center;
+}
+.other_images{
+    display: block;
+    margin:0 auto;
+}
+
+
+ .logo{
+    height:10%;
+    width:10%;
+    
+    
+ }
+ .nav_bar{
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+ }
+ 
+.buttons{
+    display: flex;
+    justify-content: end;
+    
+    gap:20px;
+}
+.btn-create{
+    background-color: #365996;
+    border-radius: 20px;
+    display: flex;
+    
 }
 
 button {
@@ -43,10 +92,6 @@ button {
 
 button:hover {
     background-color: #0056b3;
-}
-
-.btn-create {
-    background-color: #28a745;
 }
 
 .btn-create:hover {

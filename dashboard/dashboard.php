@@ -21,13 +21,14 @@ if ($user_result && mysqli_num_rows($user_result) == 1) {
     $learn_language_id = $user_data['Learn_Language_ID'];
 
     $match_query = "
-        SELECT User.Username, User.First, User.Last 
-        FROM `User-Sorter` AS U1
-        JOIN `User` ON U1.User_ID = User.User_ID
-        WHERE U1.Native_Language_ID = $learn_language_id
-          AND U1.Learn_Language_ID = $native_language_id
-          AND U1.User_ID != $current_user_id
-    ";
+    SELECT User.User_ID, User.Username, User.First, User.Last, U1.Hobby_ID, Hobbies.Hobby AS Hobby
+    FROM `User-Sorter` AS U1
+    JOIN `User` ON U1.User_ID = User.User_ID
+    JOIN `Hobbies` ON U1.Hobby_ID = Hobbies.Hobby_ID
+    WHERE U1.Native_Language_ID = $learn_language_id
+      AND U1.Learn_Language_ID = $native_language_id
+      AND U1.User_ID != $current_user_id
+";
 
     $match_result = mysqli_query($dbc, $match_query);
 } else {
@@ -54,9 +55,15 @@ if ($user_result && mysqli_num_rows($user_result) == 1) {
         <ul>
             <?php while ($row = mysqli_fetch_assoc($match_result)): ?>
                 <li>
-                    <a href="user_profile.php?username=<?php echo urlencode($row['Username']); ?>">
-                        <?php echo htmlspecialchars($row['First'] . ' ' . $row['Last']); ?>
-                    </a>
+                    <form action="/chat/chat.php" method="GET">
+                        <input type="hidden" name="current_user_id" value="<?php echo $current_user_id; ?>">
+                        <input type="hidden" name="matched_user_id" value="<?php echo $row['User_ID']; ?>">
+                        
+                        <button type="submit">
+                            <?php echo htmlspecialchars($row['Username']); ?> 
+                            - Interest: <?php echo htmlspecialchars($row['Hobby']); ?>
+                        </button>
+                    </form>
                 </li>
             <?php endwhile; ?>
         </ul>
@@ -67,7 +74,6 @@ if ($user_result && mysqli_num_rows($user_result) == 1) {
     <form action="/logout.php" method="POST">
         <button type="submit">Logout</button>
     </form>
-
 </div>
 
 </body>

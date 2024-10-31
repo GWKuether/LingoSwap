@@ -60,6 +60,9 @@ if ($username) {
         }
 
         mysqli_close($dbc);
+
+        header("Location: /dashboard/dashboard.php");
+        exit();
     }
 } else {
     $errorMessage = "No user session found. Please log in.";
