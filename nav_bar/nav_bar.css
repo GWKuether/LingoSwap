@@ -1,0 +1,7 @@
+.nav_bar{
+    background-color: #f7f2e0;
+    margin:0px;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+}

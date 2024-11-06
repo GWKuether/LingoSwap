@@ -53,6 +53,15 @@ $chat_result = mysqli_query($dbc, $chat_query);
     <link rel="stylesheet" href="chat.css">
 </head>
 <body>
+    
+    <div class="nav_bar">
+        <a href ="/home/home.php">
+        <img class="logo" src="/images/Media.png" alt="Lingo Swap Logo"></a>
+        <div class="buttons">
+            <a href="/create_user/create_user.php"><button class="btn-create">Create Account</button></a>
+            <a href="/login/login.php"><button class="login_button">Login</button></a>
+        </div>
+    </div>
 
 <div class="chat-container">
     <h2>Chat with <?php echo htmlspecialchars($matched_username); ?></h2>
@@ -70,8 +79,9 @@ $chat_result = mysqli_query($dbc, $chat_query);
     </div>
 
     <form action="chat.php?current_user_id=<?php echo $current_user_id; ?>&matched_user_id=<?php echo $matched_user_id; ?>" method="POST">
-        <textarea name="message" placeholder="Type your message here..." required></textarea>
-        <button type="submit">Send</button>
+        <div class="send_message"><textarea name="message"  placeholder="Type your message here..." required></textarea>
+        <button type="submit" class="send_button">Send</button>
+        </div>
     </form>
 </div>
 

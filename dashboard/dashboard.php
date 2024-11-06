@@ -44,10 +44,25 @@ if ($user_result && mysqli_num_rows($user_result) == 1) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
+     <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Poppins:wght@200..900&display=swap" rel="stylesheet">
 </head>
 <body>
-
+ <div class="nav_bar">
+        <a href ="/home/home.php">
+            <div class="crop_image">
+                <img class="logo" src="/images/Media.png" alt="Lingo Swap Logo">
+            </div>
+        </a>
+        <div class="buttons">
+            <a href="/create_user/create_user.php"><button class="btn-create">Create Account</button></a>
+            <a href="/login/login.php"><button class="login_button">Login</button></a>
+        </div>
+    </div>
 <div class="container">
+    <!-- Welcome message-->
     <h2>Welcome, <?php echo htmlspecialchars($username); ?>!</h2>
     <h3>Dashboard</h3>
 
@@ -59,7 +74,7 @@ if ($user_result && mysqli_num_rows($user_result) == 1) {
                         <input type="hidden" name="current_user_id" value="<?php echo $current_user_id; ?>">
                         <input type="hidden" name="matched_user_id" value="<?php echo $row['User_ID']; ?>">
                         
-                        <button type="submit">
+                        <button class = "dashboard_button" type="submit">
                             <?php echo htmlspecialchars($row['Username']); ?> 
                             - Interest: <?php echo htmlspecialchars($row['Hobby']); ?>
                         </button>

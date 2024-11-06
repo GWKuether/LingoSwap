@@ -50,9 +50,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="login.css">
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Poppins:wght@200..900&display=swap" rel="stylesheet">
 </head>
 <body>
-
+    
+<div class="nav_bar">
+    <a href ="/home/home.php">
+        <div class="crop_image">
+            <img class="logo" src="/images/Media.png" alt="Lingo Swap Logo">
+        </div>
+    </a>
+    <div class="buttons">
+        <a href="/create_user/create_user.php"><button class="btn-create">Create Account</button></a>
+        <a href="/login/login.php"><button class="login_button">Login</button></a>
+    </div>
+</div>
 <div class="container">
     <h2>Login</h2>
 
@@ -67,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <form action="login.php" method="POST">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
+        <button class="login" type="submit">Login</button>
     </form>
 </div>
 
