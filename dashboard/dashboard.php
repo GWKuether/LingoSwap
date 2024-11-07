@@ -9,6 +9,8 @@ if (!$username) {
     exit();
 }
 
+include '../nav_bar/nav_bar.php';
+
 $user_query = "SELECT User_ID, Native_Language_ID, Learn_Language_ID FROM `User-Sorter` 
                WHERE User_ID = (SELECT User_ID FROM `User` WHERE Username = '$username')";
 
@@ -44,51 +46,41 @@ if ($user_result && mysqli_num_rows($user_result) == 1) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="dashboard.css">
-     <!-- Font -->
+    <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Poppins:wght@200..900&display=swap" rel="stylesheet">
 </head>
 <body>
- <div class="nav_bar">
-        <a href ="/home/home.php">
-            <div class="crop_image">
-                <img class="logo" src="/images/Media.png" alt="Lingo Swap Logo">
-            </div>
-        </a>
-        <div class="buttons">
-            <a href="/create_user/create_user.php"><button class="btn-create">Create Account</button></a>
-            <a href="/login/login.php"><button class="login_button">Login</button></a>
-        </div>
-    </div>
+
 <div class="container">
     <!-- Welcome message-->
     <h2>Welcome, <?php echo htmlspecialchars($username); ?>!</h2>
-    <h3>Dashboard</h3>
+    <h3>Match With Users!</h3>
 
     <?php if ($match_result && mysqli_num_rows($match_result) > 0): ?>
-        <ul>
+        <div class="match-grid">
             <?php while ($row = mysqli_fetch_assoc($match_result)): ?>
-                <li>
+                <div class="match-card">
                     <form action="/chat/chat.php" method="GET">
                         <input type="hidden" name="current_user_id" value="<?php echo $current_user_id; ?>">
                         <input type="hidden" name="matched_user_id" value="<?php echo $row['User_ID']; ?>">
                         
-                        <button class = "dashboard_button" type="submit">
-                            <?php echo htmlspecialchars($row['Username']); ?> 
-                            - Interest: <?php echo htmlspecialchars($row['Hobby']); ?>
+                        <button class="dashboard_button" type="submit">
+                            <div class="user-info">
+                                <h4><?php echo htmlspecialchars($row['Username']); ?></h4>
+                                <p>Let's talk about <?php echo htmlspecialchars($row['Hobby']); ?>!</p>
+
+                            </div>
                         </button>
                     </form>
-                </li>
+                </div>
             <?php endwhile; ?>
-        </ul>
+        </div>
     <?php else: ?>
         <p>No matches found based on your language preferences.</p>
     <?php endif; ?>
 
-    <form action="/logout.php" method="POST">
-        <button type="submit">Logout</button>
-    </form>
 </div>
 
 </body>

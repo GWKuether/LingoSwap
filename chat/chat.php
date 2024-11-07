@@ -53,37 +53,31 @@ $chat_result = mysqli_query($dbc, $chat_query);
     <link rel="stylesheet" href="chat.css">
 </head>
 <body>
-    
-    <div class="nav_bar">
-        <a href ="/home/home.php">
-        <img class="logo" src="/images/Media.png" alt="Lingo Swap Logo"></a>
-        <div class="buttons">
-            <a href="/create_user/create_user.php"><button class="btn-create">Create Account</button></a>
-            <a href="/login/login.php"><button class="login_button">Login</button></a>
+
+    <?php include '../nav_bar/nav_bar.php'; ?>
+
+    <div class="chat-container">
+        <h2>Chat with <?php echo htmlspecialchars($matched_username); ?></h2>
+
+        <div class="chat-history">
+            <?php if ($chat_result && mysqli_num_rows($chat_result) > 0): ?>
+                <?php while ($row = mysqli_fetch_assoc($chat_result)): ?>
+                    <p><strong><?php echo ($row['Sender_ID'] == $current_user_id) ? 'You' : 'Them'; ?>:</strong> 
+                    <?php echo htmlspecialchars($row['Message_Content']); ?> 
+                    <span class="timestamp"><?php echo $row['Timestamp']; ?></span></p>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>No messages yet.</p>
+            <?php endif; ?>
         </div>
+
+        <form action="chat.php?current_user_id=<?php echo $current_user_id; ?>&matched_user_id=<?php echo $matched_user_id; ?>" method="POST">
+            <div class="send_message">
+                <textarea name="message" placeholder="Type your message here..." required></textarea>
+                <button type="submit" class="send_button">Send</button>
+            </div>
+        </form>
     </div>
-
-<div class="chat-container">
-    <h2>Chat with <?php echo htmlspecialchars($matched_username); ?></h2>
-
-    <div class="chat-history">
-        <?php if ($chat_result && mysqli_num_rows($chat_result) > 0): ?>
-            <?php while ($row = mysqli_fetch_assoc($chat_result)): ?>
-                <p><strong><?php echo ($row['Sender_ID'] == $current_user_id) ? 'You' : 'Them'; ?>:</strong> 
-                <?php echo htmlspecialchars($row['Message_Content']); ?> 
-                <span class="timestamp"><?php echo $row['Timestamp']; ?></span></p>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <p>No messages yet.</p>
-        <?php endif; ?>
-    </div>
-
-    <form action="chat.php?current_user_id=<?php echo $current_user_id; ?>&matched_user_id=<?php echo $matched_user_id; ?>" method="POST">
-        <div class="send_message"><textarea name="message"  placeholder="Type your message here..." required></textarea>
-        <button type="submit" class="send_button">Send</button>
-        </div>
-    </form>
-</div>
 
 </body>
 </html>

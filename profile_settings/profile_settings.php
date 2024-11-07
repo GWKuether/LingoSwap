@@ -22,7 +22,7 @@ if ($username) {
         $errorMessage = "User not found. Please make sure you are logged in.";
     }
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($user_id)) {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_profile'])) {
         $native_language = mysqli_real_escape_string($dbc, $_POST['native_language']);
         $learn_language = mysqli_real_escape_string($dbc, $_POST['learn_language']);
         $hobbies_interests = mysqli_real_escape_string($dbc, $_POST['hobbies_interests']);
@@ -64,6 +64,29 @@ if ($username) {
         header("Location: /dashboard/dashboard.php");
         exit();
     }
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_profile'])) {
+        echo "<script>
+            if (confirm('Are you sure you want to delete your profile?')) {
+                window.location.href = 'profile_settings.php?confirm_delete=true';
+            } else {
+                window.location.href = 'profile_settings.php';
+            }
+        </script>";
+    }
+
+    if (isset($_GET['confirm_delete']) && $_GET['confirm_delete'] == 'true') {
+        $delete_user_sorter_query = "DELETE FROM `User-Sorter` WHERE User_ID = '$user_id'";
+        $delete_user_query = "DELETE FROM `User` WHERE User_ID = '$user_id'";
+
+        if (mysqli_query($dbc, $delete_user_sorter_query) && mysqli_query($dbc, $delete_user_query)) {
+            session_destroy();
+            header("Location: /home/home.php");
+            exit();
+        } else {
+            $errorMessage = "Error deleting profile: " . mysqli_error($dbc);
+        }
+    }
 } else {
     $errorMessage = "No user session found. Please log in.";
 }
@@ -81,6 +104,7 @@ if ($username) {
 
 <div class="container">
     <h2>Welcome, <?php echo htmlspecialchars($first_name . ' ' . $last_name); ?>!</h2>
+    <br>
     <h3>Profile Settings</h3>
 
     <?php 
@@ -115,15 +139,27 @@ if ($username) {
             <option value="4">Technology</option>
             <option value="5">Travel</option>
         </select>
+        <button type="submit" name="update_profile">Save Profile</button>
 
-        <br><br>
+        <br>
+        <br>
+        <h3>Update Password</h3>
         <label for="new_password">New Password:</label>
-        <input type="password" name="new_password" id="new_password">
+        <input placeholder="optional" type="password" name="new_password" id="new_password">
 
         <label for="confirm_password">Confirm New Password:</label>
-        <input type="password" name="confirm_password" id="confirm_password">
+        <input placeholder="optional" type="password" name="confirm_password" id="confirm_password">
 
-        <button type="submit">Save Profile</button>
+        <button type="submit" name="update_profile">Save Password</button>
+    </form>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3>Delete Profile</h3>
+    <form action="profile_settings.php" method="POST">
+        <button type="submit" name="delete_profile" style="background-color: #ff4d4d;">Delete Profile</button>
     </form>
 </div>
 
