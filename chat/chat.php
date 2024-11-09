@@ -54,7 +54,7 @@ $chat_result = mysqli_query($dbc, $chat_query);
 </head>
 <body>
 
-    <?php include '../nav_bar/nav_bar.php'; ?>
+   <?php include '../nav_bar/nav_bar.php'; ?>
 
     <div class="chat-container">
         <h2>Chat with <?php echo htmlspecialchars($matched_username); ?></h2>

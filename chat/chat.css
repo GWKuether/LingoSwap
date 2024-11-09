@@ -11,7 +11,7 @@ body {
     height: 100vh;
 }
 
-.nav_bar{
+/*.nav_bar{
     background-color: #f7f2e0;
      
       position: sticky;
@@ -22,14 +22,14 @@ body {
       justify-content: space-between;
      
       
-  }
+  }*/
 
-.logo{
+/*.logo{
     height:160px;
   width:160px;
   padding-bottom: 0px;
   margin-bottom:0px;
-}
+}*/
 p{
     border: solid 1px #DFE0EB;
     border-radius: 10px;

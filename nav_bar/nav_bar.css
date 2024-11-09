@@ -10,8 +10,10 @@
 }
 
 .logo {
-    height: 50px;
-    margin-right: auto;
+    height:160px;
+    width:160px;
+    padding-bottom: 0px;
+    margin-bottom:0px;
 }
 
 .buttons {

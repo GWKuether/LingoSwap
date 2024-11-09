@@ -5,13 +5,12 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'poppins', sans-serif;
     background-color: #f7f2e0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
 }
 
 .container {
@@ -22,12 +21,10 @@ body {
     width: 400px;
     max-width: 90%;
     text-align: center;
-    margin-top: 20px;
 }
 
-select, 
-input[type="text"], 
-input[type="password"] {
+select,
+input[type="text"] {
     width: 90%;
     padding: 10px;
     margin: 10px auto;
@@ -49,14 +46,6 @@ button {
 
 button:hover {
     background-color: #0056b3;
-}
-
-button[name="delete_profile"] {
-    background-color: #ff4d4d;
-}
-
-button[name="delete_profile"]:hover {
-    background-color: #cc0000;
 }
 
 #success-message,
